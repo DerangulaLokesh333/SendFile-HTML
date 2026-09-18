@@ -5,13 +5,35 @@
 </head>
 <body>
 
-    <form>
+    <form id="productForm">
         <label for="product">Product Name</label>
-
         <input type="text" id="product" name="productName">
 
         <button type="submit">Add Product</button>
     </form>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+        const form = document.getElementById('productForm');
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const productName = document.getElementById('product').value;
+
+            try {
+                const response = await axios.post('/api/products', {
+                    productName: productName
+                });
+
+                console.log(response.data);
+                alert(response.data.productName);
+            } catch (error) {
+                console.log(error);
+            }
+        });
+    </script>
 
 </body>
 </html>
